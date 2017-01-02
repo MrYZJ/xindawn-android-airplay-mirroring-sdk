@@ -87,7 +87,7 @@ JavaVM *get_jvm()
 
 static const char* const kClassPathName = "com/xindawn/jni/PlatinumJniProxy";
 
-static jint com_xindawn_jni_PlatinumJniProxy_startMediaRender(JNIEnv* env,jobject thiz, jstring friendname,int width,int height,int airtunes_port,int airplay_port,int rcvsize, jobject context);
+static jint com_xindawn_jni_PlatinumJniProxy_startMediaRender(JNIEnv* env,jobject thiz, jstring friendname,jstring libpath,int width,int height,int airtunes_port,int airplay_port,int rcvsize, jobject context);
 static jint com_xindawn_jni_PlatinumJniProxy_stopMediaRender(JNIEnv *env, jobject thiz);
 
 
@@ -344,7 +344,7 @@ int jniRegisterNativeMethods(JNIEnv* env,
 }
 
 static JNINativeMethod gMethods[] = {
-	{"startMediaRender", "(Ljava/lang/String;IIIIILandroid/content/Context;)I", (void *)com_xindawn_jni_PlatinumJniProxy_startMediaRender },
+	{"startMediaRender", "(Ljava/lang/String;Ljava/lang/String;IIIIILandroid/content/Context;)I", (void *)com_xindawn_jni_PlatinumJniProxy_startMediaRender },
 	{"stopMediaRender", "()I", (void *)com_xindawn_jni_PlatinumJniProxy_stopMediaRender },
 	{"responseGenaEvent", "(I[B[B)Z", (void *)com_xindawn_jni_PlatinumJniProxy_responseGenaEvent },
 };
@@ -1682,7 +1682,7 @@ static void *mirroring_thread(void *arg)
 
 
 
-static jint com_xindawn_jni_PlatinumJniProxy_startMediaRender(JNIEnv* env,jobject thiz, jstring friendname,int width,int height,int airtunes_port,int airplay_port,int rcvsize, jobject context)
+static jint com_xindawn_jni_PlatinumJniProxy_startMediaRender(JNIEnv* env,jobject thiz, jstring friendname,jstring libpath,int width,int height,int airtunes_port,int airplay_port,int rcvsize, jobject context)
 {
 
 
@@ -1735,8 +1735,10 @@ static jint com_xindawn_jni_PlatinumJniProxy_startMediaRender(JNIEnv* env,jobjec
 
 
 	char* pFriendname = (char *)env->GetStringUTFChars(friendname, NULL);
+	char* pLibPath    = (char *)env->GetStringUTFChars(libpath, NULL);
 	LOGI("native get friendname is %s",pFriendname);
-	XinDawn_StartMediaServer(pFriendname,width,height,&ao);
+	XinDawn_StartMediaServer(pFriendname,pLibPath,width,height,"000000000",&ao);
+	env->ReleaseStringUTFChars(libpath,pLibPath);
 	env->ReleaseStringUTFChars(friendname,pFriendname);
 
 	return 0;

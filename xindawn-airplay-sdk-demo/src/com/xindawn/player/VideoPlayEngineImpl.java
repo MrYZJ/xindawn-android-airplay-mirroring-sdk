@@ -13,6 +13,11 @@ import com.xindawn.util.CommonLog;
 import com.xindawn.util.CommonUtil;
 import com.xindawn.util.LogFactory;
 
+import java.util.HashMap;
+import java.util.Map;
+import android.net.Uri;
+
+
 
 public class VideoPlayEngineImpl extends AbstractMediaPlayEngine{
 	
@@ -49,7 +54,10 @@ public class VideoPlayEngineImpl extends AbstractMediaPlayEngine{
 
 		mMediaPlayer.reset();
 		try {
-			mMediaPlayer.setDataSource(mMediaInfo.getUrl());
+		    Uri uri = Uri.parse(mMediaInfo.getUrl());
+	        Map<String, String> headers = new HashMap<String, String>();
+	        headers.put("Range", "bytes=0-");
+	        mMediaPlayer.setDataSource(mContext, uri, headers);
 			mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);  
 			if (mHolder != null){
 				mMediaPlayer.setDisplay(mHolder);
