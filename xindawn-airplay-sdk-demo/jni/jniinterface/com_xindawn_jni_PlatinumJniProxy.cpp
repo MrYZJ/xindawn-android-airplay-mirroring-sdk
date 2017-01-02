@@ -63,9 +63,9 @@ extern "C"{
 
 
 
-#define  LOG_TAG    "airPlayer"
-#define  LOGI(...)  //__android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
-#define  LOGE(...)  //__android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
+#define  LOG_TAG    "XinDawn"
+#define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
+#define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
 
 
 static JavaVM*   	g_vm = NULL;
@@ -1737,7 +1737,8 @@ static jint com_xindawn_jni_PlatinumJniProxy_startMediaRender(JNIEnv* env,jobjec
 	char* pFriendname = (char *)env->GetStringUTFChars(friendname, NULL);
 	char* pLibPath    = (char *)env->GetStringUTFChars(libpath, NULL);
 	LOGI("native get friendname is %s",pFriendname);
-	XinDawn_StartMediaServer(pFriendname,pLibPath,width,height,"000000000",&ao);
+	int ret = XinDawn_StartMediaServer(pFriendname,pLibPath,width,height,"000000000",&ao);
+	LOGI("ret=  %d",ret);
 	env->ReleaseStringUTFChars(libpath,pLibPath);
 	env->ReleaseStringUTFChars(friendname,pFriendname);
 
