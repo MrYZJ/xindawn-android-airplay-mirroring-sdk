@@ -1596,15 +1596,15 @@ static void *mirroring_thread(void *arg)
 					//校验播放器
 					buffer[nread] = 0;
 
-					LOGE("=======%s==========recv get quest===================",buffer);
+					//LOGE("=======%s==========recv get quest===================",buffer);
 
-					if(!strstr(buffer,"stlAirPlayer"))
-					{
+					//if(!strstr(buffer,"stlAirPlayer"))
+					//{
 
-						LOGE("==============no==authorization=======user============");
+					//	LOGE("==============no==authorization=======user============");
 
-						continue;
-					}
+					//	continue;
+					//}
 
 
 					res_data = (unsigned char *)malloc(512);

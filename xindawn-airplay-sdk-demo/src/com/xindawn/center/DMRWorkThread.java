@@ -83,9 +83,9 @@ public class DMRWorkThread extends Thread implements IBaseEngine{
 	}
 	
 	public void refreshNotify(){
-		if (!CommonUtil.checkNetworkState(mContext)){
-			return ;
-		}
+		//if (!CommonUtil.checkNetworkState(mContext)){
+		//	return ;
+		//}
 		
 		if (!mStartSuccess){
 			stopEngine();
