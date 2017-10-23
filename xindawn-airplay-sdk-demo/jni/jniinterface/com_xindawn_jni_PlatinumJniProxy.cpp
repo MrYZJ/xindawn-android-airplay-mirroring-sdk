@@ -1580,7 +1580,7 @@ static void *mirroring_thread(void *arg)
 		else if (res > 0)
 		{
 			int socket = m_proxyConnections.m_socket;
-			if (FD_ISSET(socket, &rfds))
+			if ((socket != INVALID_SOCKET) && FD_ISSET(socket, &rfds))
 			{
 				char buffer[RECEIVEBUFFER] = {};
 				int  nread = 0;
@@ -1642,7 +1642,7 @@ static void *mirroring_thread(void *arg)
 
 			}
 
-			if (FD_ISSET(m_proxySocket, &rfds))
+			if ( (m_proxySocket != INVALID_SOCKET)  && FD_ISSET(m_proxySocket, &rfds))
 			{
 					m_proxyConnections.m_addrlen = sizeof(struct sockaddr_storage);
 					m_proxyConnections.m_socket = accept(m_proxySocket, (struct sockaddr*) &m_proxyConnections.m_cliaddr, &m_proxyConnections.m_addrlen);
