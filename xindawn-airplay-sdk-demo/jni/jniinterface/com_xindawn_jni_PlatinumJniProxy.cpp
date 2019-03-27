@@ -252,7 +252,7 @@ static jint com_xindawn_jni_PlatinumJniProxy_responseGenaEvent(JNIEnv *env, jobj
 	 if ( pData != NULL)
 	     env->ReleaseByteArrayElements(data, pData, NULL);
 
-
+	 return 0;
 }
 
 
@@ -1678,6 +1678,7 @@ static void *mirroring_thread(void *arg)
 		m_proxySocket = INVALID_SOCKET;
 	}
 
+	return NULL;
 }
 
 
@@ -1694,7 +1695,7 @@ static jint com_xindawn_jni_PlatinumJniProxy_startMediaRender(JNIEnv* env,jobjec
     if ((m_proxySocket = CreateProxyServerSocket(&m_proxyPort, 0,0 )) == INVALID_SOCKET)
     {
     	LOGE( "AIRPLAY Server: Failed to create mirroring thread.\n");
-     	return ;
+     	return 0;
     }
 
 
