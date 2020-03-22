@@ -13,7 +13,8 @@ public class PlatinumJniProxy {
 			System.loadLibrary("jniinterface");
         	System.loadLibrary("mediaserver");
     }   
- 
+    public static final  int RSTPPORT  = 47000;
+    public static final  int DATAPORT = 7000;
     public static native int startMediaRender(String friendname,String libpath,String activecode,int width,int height ,int airtunes_port,int airplay_port,int rcv_size,Context obj );
     public static native int stopMediaRender();  
     public static native boolean responseGenaEvent(int cmd, byte[] value ,byte[] data);  
@@ -56,7 +57,7 @@ public class PlatinumJniProxy {
     	
     	String objpath = findLibrary1(RenderApplication.getInstance(),"mediaserver");
     
-    	ret = startMediaRender(friendname,objpath,"000000000",1280,720,47000,7000,128*1024,RenderApplication.getInstance());
+    	ret = startMediaRender(friendname,objpath,"000000000",1280,720,RSTPPORT,DATAPORT,128*1024,RenderApplication.getInstance());
 	
     	return ret;
     }

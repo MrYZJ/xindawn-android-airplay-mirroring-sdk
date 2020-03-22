@@ -107,8 +107,21 @@ public class DMRWorkThread extends Thread implements IBaseEngine{
 		if (mFriendName.length() == 0){
 			return false;
 		}
+		
+		int p1[] = new int[]{com.xindawn.jni.PlatinumJniProxy.RSTPPORT};
+	    int p2[] = new int[]{com.xindawn.jni.PlatinumJniProxy.DATAPORT};
 
-		int ret = PlatinumJniProxy.startMediaRender_Java(mFriendName);
+
+	    int ret = CommonUtil.RegisterMyService(mContext, mFriendName, p1, p2);
+	    log.e("registerMyService : " + ret);
+
+	    if(ret <= 0)
+	    {
+	        return false;
+	    }
+
+
+		ret = PlatinumJniProxy.startMediaRender_Java(mFriendName);
 		boolean result = (ret == 0 ? true : false);
 		mApplication.setDevStatus(result);
 		return result;
@@ -116,6 +129,12 @@ public class DMRWorkThread extends Thread implements IBaseEngine{
 
 	@Override
 	public boolean stopEngine() {
+		
+	   log.e("stop engine begin~~~~");
+       CommonUtil.closeMDNS();
+       log.e("close mDNS finish~");
+
+		
 		PlatinumJniProxy.stopMediaRender();
 		mApplication.setDevStatus(false);
 		return true;
