@@ -1375,7 +1375,7 @@ static void audio_metadata(void *cls,const void *buffer, int buflen)
 	//TODO
 	  CStdString m_didl_metadata;
 	  CStdString m_didl_metadata_body;
-	  std::map<std::string, std::string> metadata = decodeDMAP(buffer, buflen);
+	  std::map<std::string, std::string> metadata = decodeDMAP((const char *)buffer, buflen);
 
 	  m_didl_metadata.Format("%s","<DIDL-Lite xmlns=\"urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:upnp=\"urn:schemas-upnp-org:metadata-1-0/upnp/\" xmlns:dlna=\"urn:schemas-dlna-org:metadata-1-0/\" xmlns:sec=\"http://www.sec.co.kr/dlna\">\r\n");
 	  m_didl_metadata += "<item id=\"7\" parentID=\"2\" restricted=\"1\">\r\n";
@@ -1426,7 +1426,7 @@ static void audio_coverart(void *cls,const void *buffer, int buflen)
 {
 
 
-	ActionInflectByte(0x110, NULL, buffer,buflen,NULL);
+	ActionInflectByte(0x110, NULL, (const char *)buffer,buflen,NULL);
 
 	LOGE("=====audio_coverart====\n");
 }
@@ -1609,9 +1609,9 @@ static void *mirroring_thread(void *arg)
 
 					res_data = (unsigned char *)malloc(512);
 					memset(res_data,0,512);
-					sprintf(res_data,"HTTP/1.1 200 OK\r\nContent-Type: multipart/x-mixed-replace; boundary=--myboundary\r\nContent-Length: %ld\r\nConnection: close\r\n\r\n",0x7fffffff);
+					sprintf((char *)res_data,"HTTP/1.1 200 OK\r\nContent-Type: multipart/x-mixed-replace; boundary=--myboundary\r\nContent-Length: %ld\r\nConnection: close\r\n\r\n",0x7fffffff);
 
-					datalen = strlen(res_data);
+					datalen = strlen((const char *)res_data);
 					written = 0;
 					while (written < datalen)
 					{
