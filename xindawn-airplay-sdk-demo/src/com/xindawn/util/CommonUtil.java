@@ -87,12 +87,12 @@ public class CommonUtil {
      */
     public static int RegisterMyService(Context context, String name, int[] roapPort, int[] airPlayPort) {
      
-    	while (isPortOpen(roapPort[0])) {
-            roapPort[0]++;
-        }
-        while(isPortOpen(airPlayPort[0])) {
-            airPlayPort[0]++;
-        }
+    	//while (isPortOpen(roapPort[0])) {
+        //    roapPort[0]++;
+        //}
+        //while(isPortOpen(airPlayPort[0])) {
+        //    airPlayPort[0]++;
+        //}
         try {
             JmDNS cur = mDNS;
             if (cur != null) {
