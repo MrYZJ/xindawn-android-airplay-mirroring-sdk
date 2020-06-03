@@ -177,7 +177,7 @@ public class CommonUtil {
             
             log.e("macAddress: " + macAddress);
 
-            final String Feature = "0x5A7FFFF6,0x1E";
+            final String Feature = "0x5A7FFFF7,0x1E";
             final String Model = "AppleTV3,2";
             final String ServerVersion = "220.68";
             String pk = "99FD4299889422515FBD27949E4E1E21B2AF50A454499E3D4BE75A4E0F55FE63";
